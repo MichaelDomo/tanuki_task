@@ -4,10 +4,15 @@ namespace src\Repositories;
 
 use src\Entities\ExchangeRate;
 
+/**
+ * Получаем данные по курсу валют из Апи
+ *
+ * @package src\Repositories
+ */
 class ApiExchangeRateRepository implements ReadExchangeRateRepositoryInterface
 {
     /**
-     * @var ConnectionInterface
+     * @var ClientInterface
      */
     private $client;
     /**

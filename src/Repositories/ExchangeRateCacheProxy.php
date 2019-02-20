@@ -32,7 +32,7 @@ class ExchangeRateCacheProxy implements ExchangeRateRepositoryInterface
         CacheInterface $cache
     )
     {
-        $this->sqlRepository = $repository;
+        $this->repository = $repository;
         $this->cache = $cache;
     }
 
@@ -58,7 +58,7 @@ class ExchangeRateCacheProxy implements ExchangeRateRepositoryInterface
             return $result;
         }
 
-        $result = $this->sqlRepository->findAll();
+        $result = $this->repository->findAll();
         if (!empty($result)) {
             $this->cache->set($key, $result, self::CACHE_DURATION);
 
@@ -81,7 +81,7 @@ class ExchangeRateCacheProxy implements ExchangeRateRepositoryInterface
             return $result;
         }
 
-        $result = $this->sqlRepository->findExchange($currencyFrom, $currencyTo);
+        $result = $this->repository->findExchange($currencyFrom, $currencyTo);
         if (!empty($result)) {
             $this->cache->set($key, $result, self::CACHE_DURATION);
 

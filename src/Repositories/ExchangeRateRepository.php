@@ -7,9 +7,9 @@ use src\Entities\ExchangeRate;
 class ExchangeRateRepository implements ExchangeRateRepositoryInterface
 {
     /**
-     * @var ConnectionInterface
+     * @var ReadExchangeRateRepositoryInterface
      */
-    private $db;
+    private $api;
     /**
      * @var HydratorInterface
      */
@@ -21,7 +21,8 @@ class ExchangeRateRepository implements ExchangeRateRepositoryInterface
 
     /**
      * @param HydratorInterface $hydrator
-     * @param ConnectionInterface $db
+     * @param ReadExchangeRateRepositoryInterface $api
+     * @param ExchangeRateRepositoryInterface $repository
      */
     public function __construct(
         HydratorInterface $hydrator,
@@ -73,7 +74,7 @@ class ExchangeRateRepository implements ExchangeRateRepositoryInterface
     }
 
     /**
-     * Может кто-то захочет очистить таблицу с курсами валют, чтобы заново выгрезить из апи
+     * Может кто-то захочет очистить таблицу с курсами валют, чтобы заново выгрузить из апи
      * @return bool
      */
     public function clear(): bool
