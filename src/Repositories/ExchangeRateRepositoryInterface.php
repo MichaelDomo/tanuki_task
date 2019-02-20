@@ -4,16 +4,15 @@ namespace src\Repositories;
 
 use src\Entities\ExchangeRate;
 
-interface ExchangeRateRepositoryInterface
+interface ExchangeRateRepositoryInterface extends ReadExchangeRateRepositoryInterface
 {
     /**
-     * @return ExchangeRate[]
+     * @param array $exchangeRates
+     * @return bool
      */
-    public function findAll(): array;
+    public function insert(array $exchangeRates): bool;
     /**
-     * @param string $currencyFrom
-     * @param string $currencyTo
-     * @return ExchangeRate
+     * @return bool
      */
-    public function findExchange(string $currencyFrom, string $currencyTo): ExchangeRate;
+    public function clear(): bool;
 }

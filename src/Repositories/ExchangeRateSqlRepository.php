@@ -4,7 +4,7 @@ namespace src\Repositories;
 
 use src\Entities\ExchangeRate;
 
-class SqlExchangeRateRepository implements ExchangeRateRepositoryInterface
+class ExchangeRateSqlRepository implements ExchangeRateRepositoryInterface
 {
     /**
      * @var ConnectionInterface
@@ -28,13 +28,13 @@ class SqlExchangeRateRepository implements ExchangeRateRepositoryInterface
     /**
      * @return string
      */
-    public function tableName(): string
+    private function tableName(): string
     {
         return 'exchange_rate';
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function findAll(): array
     {
@@ -44,9 +44,11 @@ class SqlExchangeRateRepository implements ExchangeRateRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * @param string $currencyFrom
+     * @param string $currencyTo
+     * @return null|ExchangeRate
      */
-    public function findExchange(string $currencyFrom, string $currencyTo): ExchangeRate
+    public function findExchange(string $currencyFrom, string $currencyTo): ?ExchangeRate
     {
         $result = $this->db->queryOne(
             $this->tableName(),

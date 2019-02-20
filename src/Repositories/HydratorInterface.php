@@ -14,7 +14,6 @@ interface HydratorInterface
      * @return mixed
      */
     public function hydrate(string $class, array $data);
-
     /**
      * Преобразовываем объект в массив для записи в базу
      *

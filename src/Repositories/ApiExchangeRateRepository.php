@@ -4,7 +4,7 @@ namespace src\Repositories;
 
 use src\Entities\ExchangeRate;
 
-class ApiExchangeRateRepository implements ExchangeRateRepositoryInterface
+class ApiExchangeRateRepository implements ReadExchangeRateRepositoryInterface
 {
     /**
      * @var ConnectionInterface
@@ -28,13 +28,13 @@ class ApiExchangeRateRepository implements ExchangeRateRepositoryInterface
     /**
      * @return string
      */
-    public function url(): string
+    private function url(): string
     {
         return 'http://exchange-rate.com';
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function findAll(): array
     {
@@ -44,15 +44,23 @@ class ApiExchangeRateRepository implements ExchangeRateRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * @param string $currencyFrom
+     * @param string $currencyTo
+     * @return null|ExchangeRate
      */
-    public function findExchange(string $currencyFrom, string $currencyTo): ExchangeRate
+    public function findExchange(string $currencyFrom, string $currencyTo): ?ExchangeRate
     {
-        $result = $this->client->sendRequest(
+        $response = $this->client->sendRequest(
             $this->url(),
             ['currency_from' => $currencyFrom, 'currency_to' => $currencyTo]
         );
 
-        return $this->hydrator->hydrate(ExchangeRate::class, $result);
+        if (!empty($response)) {
+            $result = $this->hydrator->hydrate(ExchangeRate::class, $response);
+
+            return $result[0];
+        }
+
+        return null;
     }
 }
