@@ -3,7 +3,7 @@
 Для того чтобы пользоваться случаем из задания надо сконфигурировать сервис и положить его в контейнер, как-то так:
 
 ```
-$container->set(ExchangeRateRepository::class, function () {
+$container->set(ExchangeRateRepositoryInterface::class, function () {
     return new ExchangeRateRepository(
         new Hydrator(),
         new ExchangeRateCacheProxy(),
